@@ -19,6 +19,8 @@ public class ServiceImpl implements ServiceInterface {
 
 	@Autowired
 	UserRepo userRepo;
+	
+	String status2 = "No";
 
 	@Override
 	public User registerUser(User user) {
@@ -39,16 +41,16 @@ public class ServiceImpl implements ServiceInterface {
 
 	@Override
 	public List<User> findUser(String input) {
-		List<User> checkUser1 = userRepo.findByName(input);
+		List<User> checkUser1 = userRepo.findByName(input,status2);
 		if (!checkUser1.isEmpty()) {
 			System.out.println("In Service IMPL" + checkUser1);
 			return checkUser1;
 		} else {
-			List<User> checkUser2 = userRepo.findBySurname(input);
+			List<User> checkUser2 = userRepo.findBySurname(input,status2);
 			if (!checkUser2.isEmpty()) {
 				return checkUser2;
 			} else {
-				List<User> checkUser3 = userRepo.findByPincode(input);
+				List<User> checkUser3 = userRepo.findByPincode(input,status2);
 				return checkUser3;
 			}
 		}
@@ -59,14 +61,14 @@ public class ServiceImpl implements ServiceInterface {
 		String status1 = "Yes";
 		userRepo.saveById(uid, status1);
 
-		String status2 = "No";
-		List<User> list = userRepo.findAllByDeleted(status2);
+		
+		List<User> list = userRepo.findAll(status2);
 		return list;
 	}
 
 	@Override
 	public List<User> userByDOB() {
-		List<User> list = userRepo.findAll();
+		List<User> list = userRepo.findAll(status2);
 		List<User> newList = list.stream().sorted((User u1, User u2) -> u1.getDob().compareTo(u2.getDob()))
 				.collect(Collectors.toList());
 		return newList;
@@ -74,7 +76,7 @@ public class ServiceImpl implements ServiceInterface {
 
 	@Override
 	public List<User> userByJoiningData() {
-		List<User> list = userRepo.findAll();
+		List<User> list = userRepo.findAll(status2);
 		List<User> newList = list.stream()
 				.sorted((User u1, User u2) -> u2.getJoiningDate().compareTo(u1.getJoiningDate()))
 				.collect(Collectors.toList());

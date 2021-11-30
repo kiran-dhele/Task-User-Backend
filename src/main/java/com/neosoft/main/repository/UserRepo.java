@@ -15,11 +15,14 @@ import com.neosoft.main.model.User;
 @Repository
 public interface UserRepo extends JpaRepository<User, Integer>{
 
-	public List<User> findByName(String input);
+	@Query(value = "select * from user where deleted=:status and name=:input", nativeQuery = true)
+	public List<User> findByName(@Param("input") String input, @Param("status") String status);
 	
-	public List<User> findBySurname(String input);
+	@Query(value = "select * from user where deleted=:status and surname=:input", nativeQuery = true)
+	public List<User> findBySurname(@Param("input") String input, @Param("status") String status);
 	
-	public List<User> findByPincode(String input);
+	@Query(value = "select * from user where deleted=:status and pincode=:input", nativeQuery = true)
+	public List<User> findByPincode(@Param("input") String input, @Param("status") String status);
 
 	public User findById(int uid);
 	
@@ -29,7 +32,7 @@ public interface UserRepo extends JpaRepository<User, Integer>{
 //	public List<User> findAll(@Param("flag") String flag);
 	
 	@Query(value = "select * from user where deleted=:status", nativeQuery = true)
-	public List<User> findAllByDeleted(@Param("status") String status);
+	public List<User> findAll(@Param("status") String status);
 	
 	@Transactional
 	@Modifying

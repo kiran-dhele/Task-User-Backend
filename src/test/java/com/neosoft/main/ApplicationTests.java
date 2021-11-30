@@ -112,8 +112,9 @@ class ApplicationTests {
 		userList.add(user1);
 		userList.add(user2);
 		String input = "Roshan";
+		String deleted="No";
 
-		when(userRepo.findByName(input)).thenReturn(userList);
+		when(userRepo.findByName(input,deleted)).thenReturn(userList);
 		assertEquals(userList, serviceImpl.findUser(input));
 	}
 	@Test
@@ -154,7 +155,7 @@ class ApplicationTests {
 		verify(userRepo, times(1)).saveById(uid, status);
 
 		String status2="No";
-		when(userRepo.findAllByDeleted(status2)).thenReturn(userList);
+		when(userRepo.findAll(status2)).thenReturn(userList);
 		assertEquals(userList, serviceImpl.softDeleteUser(uid));
 
 		System.out.println(userList);

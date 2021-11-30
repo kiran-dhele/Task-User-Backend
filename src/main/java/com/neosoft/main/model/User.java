@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Producer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -45,8 +46,10 @@ public class User {
 	@Pattern(regexp = "(0/91)?[7-9][0-9]{9}")
 	private String mobileNo;
 //	@Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date dob;
 //	@Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date joiningDate;
 	@NotNull(message = "pancard should not be null")
 	private String panNo;
