@@ -27,7 +27,7 @@ public class HomeController {
 	@Autowired
 	ServiceInterface serviceIntf;
 
-//This URL is used to register user in database	
+//This URL is used to register users in database	
 	@PostMapping("/registerUser")
 	public String registerUser(@Valid @RequestBody User user)
 	{
